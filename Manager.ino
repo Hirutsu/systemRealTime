@@ -1,7 +1,7 @@
 #include <TaskManager.h>
 
 int pins[] = {3, 5, 6, 9, 10, 11};
-int ledPinsLen = sizeof(ledPins);
+int LenPins = sizeof(ledPins);
 int states[] = {LOW, LOW, LOW, LOW, LOW, LOW};
 long intervals[] = {60, 900, 1200, 15000, 80000, 210000};
 
@@ -20,7 +20,7 @@ void led(int &ledState, int led)
 }
 
 void setup() {
-  for (int i = 0; i < ledPinsLen; i++) 
+  for (int i = 0; i < LenPins; i++) 
 	{
     pinMode(ledPins[i], OUTPUT);
   }

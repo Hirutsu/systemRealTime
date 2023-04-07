@@ -1,18 +1,18 @@
 int pins[] = {3, 5, 6, 9, 10, 11};
-int ledPinsLen = sizeof(ledPins);
+int LenPins = sizeof(ledPins);
 int states[] = {LOW, LOW, LOW, LOW, LOW, LOW};
-unsigned long previousMillis[] = {0, 0, 0, 0, 0, 0};
+unsigned long prevMillis[] = {0, 0, 0, 0, 0, 0};
 long intervals[] = {60, 900, 1200, 15000, 80000, 210000};
 
 unsigned long millis;
 
 void loop() {
   millis = micros();
-  for (int i = 0; i < 6 ; i++)
+  for (int i = 0; i < LenPins; i++)
 	{    
-    if (millis - previousMillis[i] >= intervals[i]) 
+    if (millis - prevMillis[i] >= intervals[i]) 
 	{
-      previousMillis[i] = millis;
+      prevMillis[i] = millis;
   
     if (states[i] == LOW) 
 	{
@@ -28,8 +28,8 @@ void loop() {
 
 void setup() 
 {
-  for (int i = 0; i < ledPinsLen; i++)
+  for (int i = 0; i < LenPins; i++)
 	{
-    pinMode(ledPins[i], OUTPUT);
+    pinMode(pins[i], OUTPUT);
   }
 }
