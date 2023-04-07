@@ -1,57 +1,97 @@
-#include <TaskManager.h>
+const int NUMBER_OF_PINS = 6;
 
-int pins[] = {3, 5, 6, 9, 10, 11};
-int LenPins = sizeof(pins);
-int states[] = {LOW, LOW, LOW, LOW, LOW, LOW};
-long intervals[] = {60, 900, 1200, 15000, 80000, 210000};
+unsigned long* microsArr = new unsigned long[NUMBER_OF_PINS];
+unsigned long intervalsArr[NUMBER_OF_PINS] = {160000,50000,800000,400000,200000,100000};
+int* states = new int[NUMBER_OF_PINS];
+int pins[NUMBER_OF_PINS] = {3, 5, 6, 9, 10, 11};
+
+void setup() 
+{
+  for (int i = 0; i < NUMBER_OF_PINS; ++i) 
+  {
+    microsArr[i] = 0;
+    states[i] = LOW;
+    pinMode(pins[i], OUTPUT);
+  }
+}
 
 void loop() {
-  taskManager.runLoop();
-}
+  unsigned long micros_val = micros();
 
-void led(int &ledState, int led)
-{
-  if (ledState == LOW) {
-      ledState = HIGH;
-    } else {
-      ledState = LOW;
+  if (micros_val - microsArr[0] >= intervalsArr[0]) 
+  {
+    microsArr[0] = micros_val;
+
+    if (states[0] == LOW) 
+    {
+      states[0] = HIGH;
     }
-  digitalWrite(led, ledState);
-}
+    else 
+    {
+      states[0] = LOW;
+    }
 
-void setup() {
-  for (int i = 0; i < LenPins; i++) 
-	{
-    pinMode(ledPins[i], OUTPUT);
+    digitalWrite(pins[0], states[0]);
   }
 
-  taskManager.scheduleFixedRate(intervals[0], [] 
-	{
-    led(states[0], pins[0]);
-  }, TIME_MICROS);
-      
-  taskManager.scheduleFixedRate(intervals[1], [] 
-	{
-    led(states[1], pins[1]);
-  }, TIME_MICROS);
-      
-  taskManager.scheduleFixedRate(intervals[2], [] 
-	{
-    led(states[2], pins[2]);
-  }, TIME_MICROS);
-      
-  taskManager.scheduleFixedRate(intervals[3], [] 
-	{
-    led(states[3], pins[3]);
-  }, TIME_MICROS);
-      
-  taskManager.scheduleFixedRate(intervals[4], [] 
-	{
-    led(states[4], pins[4]);
-  }, TIME_MICROS);
-      
-  taskManager.scheduleFixedRate(intervals[5], [] 
-	{
-    led(states[5], pins[5]);
-  }, TIME_MICROS);
+  if (micros_val - microsArr[1] >= intervalsArr[1]) 
+  {
+    microsArr[1] = micros_val;
+
+    if (states[1] == LOW) 
+    {
+      states[1] = HIGH;
+    }
+    else 
+    {
+      states[1] = LOW;
+    }
+
+    digitalWrite(pins[1], states[1]);
+  }
+  
+  if (micros_val - microsArr[2] >= intervalsArr[2]) 
+  {
+    microsArr[2] = micros_val;
+
+    if (states[2] == LOW) 
+    {
+      states[2] = HIGH;
+    }
+    else {
+      states[2] = LOW;
+    }
+
+    digitalWrite(pins[2], states[2]);
+  }
+
+  if (micros_val - microsArr[3] >= intervalsArr[3]) 
+  {
+    microsArr[3] = micros_val;
+
+    if (states[3] == LOW) {
+      states[3] = HIGH;
+    }
+    else {
+      states[3] = LOW;
+    }
+
+    digitalWrite(pins[3], states[3]);
+  }
+
+  if (micros_val - microsArr[4] >= intervalsArr[4]) 
+  {
+    microsArr[4] = micros_val;
+
+    if (states[4] == LOW) 
+    {
+      states[4] = HIGH;
+    }
+    else 
+    {
+      states[4] = LOW;
+    }
+
+    digitalWrite(pins[4], states[4]);
+  }
 }
